@@ -38,6 +38,7 @@ either expressed or implied, of the Regents of The University of Michigan.
 #include <math.h>
 
 #include "apriltag.h"
+#include "apriltag_pose.h"
 #include "tag36h11.h"
 #include "tag25h9.h"
 #include "tag16h5.h"
@@ -58,6 +59,20 @@ either expressed or implied, of the Regents of The University of Michigan.
 // Invoke:
 //
 // tagtest [options] input.pnm
+
+// defaults to a 150mm tag and camera intrinsics of a MacBook Pro (13-inch, 2018)
+// apriltag_detection_info_t: {apriltag_detection_t*, tagsize_meters, fx, fy, cx, cy}
+// NOTE: tag size is assumed according to the tag id:[0,150]=150mm;  ]150,300]=100mm; ]300,450]=50mm; ]450,587]=20mm;
+// static apriltag_detection_info_t g_det_pose_info = {NULL, 0.150, 112.5, 112.5, 112.5, 112.5};
+static apriltag_detection_info_t g_det_pose_info = {
+    NULL,
+    0.150,
+    997.5703125,
+    997.5703125,
+    636.8616333007812,
+    360.50408935546875 };
+
+static const char fmt_det_point_pose[] = "{\n\t\"id\":%d,\n\t\"size\":%.2f,\n\t\"corners\": [\n\t\t{\"x\":%.2f,\"y\":%.2f},\n\t\t{\"x\":%.2f,\"y\":%.2f},\n\t\t{\"x\":%.2f,\"y\":%.2f},\n\t\t{\"x\":%.2f,\"y\":%.2f}\n\t],\n\t\"center\": {\"x\":%.2f,\"y\":%.2f},\n\t\"pose\": {\n\t\t\"R\": [\n\t\t\t[%f,%f,%f],\n\t\t\t[%f,%f,%f],\n\t\t\t[%f,%f,%f]\n\t\t],\n\t\t\"t\": [%f,%f,%f],\n\t\t\"e\": %f\n\t}\n}\n";
 
 int main(int argc, char *argv[])
 {
@@ -199,6 +214,79 @@ int main(int argc, char *argv[])
                 if (!quiet)
                     printf("detection %3d: id (%2dx%2d)-%-4d, hamming %d, margin %8.3f\n",
                            i, det->family->nbits, det->family->h, det->id, det->hamming, det->decision_margin);
+
+                apriltag_pose_t pose0;
+                apriltag_pose_t pose1;
+                apriltag_pose_t pose2;
+                double pose_err0 = 0.0;
+                double pose_err1;
+                double pose_err2;
+                g_det_pose_info.det = det;
+                // det->id = 2;
+
+                // struct quad quad;
+                // quad.p[3][0] = 806.29;
+                // quad.p[3][1] = 246.9;
+                // quad.p[2][0] = 883.52;
+                // quad.p[2][1] = 261.98;
+                // quad.p[1][0] = 907.45;
+                // quad.p[1][1] = 179.88;
+                // quad.p[0][0] = 829.07;
+                // quad.p[0][1] = 164.06;
+                // quad.reversed_border = false;
+                // quad.H = NULL;
+                // quad.Hinv = NULL;
+
+                // quad_update_homographies(&quad);
+                // double theta = 0 /*entry.rotation*/ * M_PI / 2.0;
+                // double c = cos(theta), s = sin(theta);
+
+                // // Fix the rotation of our homography to properly orient the tag
+                // matd_t *R = matd_create(3, 3);
+                // MATD_EL(R, 0, 0) = c;
+                // MATD_EL(R, 0, 1) = -s;
+                // MATD_EL(R, 1, 0) = s;
+                // MATD_EL(R, 1, 1) = c;
+                // MATD_EL(R, 2, 2) = 1;
+
+                // det->H = matd_op("M*M", quad.H, R);
+
+                // matd_destroy(R);
+
+                // homography_project(det->H, 0, 0, &det->c[0], &det->c[1]);
+
+                // // [-1, -1], [1, -1], [1, 1], [-1, 1], Desired points
+                // // [-1, 1], [1, 1], [1, -1], [-1, -1], FLIP Y
+                // // adjust the points in det->p so that they correspond to
+                // // counter-clockwise around the quad, starting at -1,-1.
+                // for (int i = 0; i < 4; i++)
+                // {
+                //     int tcx = (i == 1 || i == 2) ? 1 : -1;
+                //     int tcy = (i < 2) ? 1 : -1;
+
+                //     double p[2];
+
+                //     homography_project(det->H, tcx, tcy, &p[0], &p[1]);
+
+                //     det->p[i][0] = p[0];
+                //     det->p[i][1] = p[1];
+                // }
+
+                estimate_pose_for_tag_homography(&g_det_pose_info, &pose0);
+                estimate_tag_pose_orthogonal_iteration(&g_det_pose_info, &pose_err1, &pose1, &pose_err2, &pose2, 50);
+                printf("solution0:\n");
+                printf(fmt_det_point_pose, det->id, 0.150, det->p[0][0], det->p[0][1], det->p[1][0], det->p[1][1], det->p[2][0], det->p[2][1], det->p[3][0], det->p[3][1], det->c[0], det->c[1], matd_get(pose0.R, 0, 0), matd_get(pose0.R, 0, 1), matd_get(pose0.R, 0, 2), matd_get(pose0.R, 1, 0), matd_get(pose0.R, 1, 1), matd_get(pose0.R, 1, 2), matd_get(pose0.R, 2, 0), matd_get(pose0.R, 2, 1), matd_get(pose0.R, 2, 2), matd_get(pose0.t, 0, 0), matd_get(pose0.t, 1, 0), matd_get(pose0.t, 2, 0), pose_err0);
+                printf("solution1:\n");
+                printf(fmt_det_point_pose, det->id, 0.150, det->p[0][0], det->p[0][1], det->p[1][0], det->p[1][1], det->p[2][0], det->p[2][1], det->p[3][0], det->p[3][1], det->c[0], det->c[1], matd_get(pose1.R, 0, 0), matd_get(pose1.R, 0, 1), matd_get(pose1.R, 0, 2), matd_get(pose1.R, 1, 0), matd_get(pose1.R, 1, 1), matd_get(pose1.R, 1, 2), matd_get(pose1.R, 2, 0), matd_get(pose1.R, 2, 1), matd_get(pose1.R, 2, 2), matd_get(pose1.t, 0, 0), matd_get(pose1.t, 1, 0), matd_get(pose1.t, 2, 0), pose_err1);
+                if (pose2.R)
+                {
+                    printf("solution2:\n");
+                    printf(fmt_det_point_pose, det->id, 0.150, det->p[0][0], det->p[0][1], det->p[1][0], det->p[1][1], det->p[2][0], det->p[2][1], det->p[3][0], det->p[3][1], det->c[0], det->c[1], matd_get(pose2.R, 0, 0), matd_get(pose2.R, 0, 1), matd_get(pose2.R, 0, 2), matd_get(pose2.R, 1, 0), matd_get(pose2.R, 1, 1), matd_get(pose2.R, 1, 2), matd_get(pose2.R, 2, 0), matd_get(pose2.R, 2, 1), matd_get(pose2.R, 2, 2), matd_get(pose2.t, 0, 0), matd_get(pose2.t, 1, 0), matd_get(pose2.t, 2, 0), pose_err2);
+                    matd_destroy(pose2.R);
+                    matd_destroy(pose2.t);
+                }
+                matd_destroy(pose1.R);
+                matd_destroy(pose1.t);
 
                 hamm_hist[det->hamming]++;
                 total_hamm_hist[det->hamming]++;
