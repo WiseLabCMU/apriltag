@@ -45,11 +45,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>../../../;$(IncludePath)</IncludePath>
+    <IncludePath>../../../;..\packages\pthreads.2.9.1.4\build\native\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>../../../;$(IncludePath)</IncludePath>
+    <IncludePath>../../../;..\packages\pthreads.2.9.1.4\build\native\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -60,6 +60,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <CompileAs>CompileAsC</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -77,6 +79,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <CompileAs>CompileAsC</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -86,9 +90,91 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\apriltag.c" />
+    <ClCompile Include="..\..\..\apriltag_pose.c" />
+    <ClCompile Include="..\..\..\apriltag_pywrap.c" />
+    <ClCompile Include="..\..\..\apriltag_quad_thresh.c" />
+    <ClCompile Include="..\..\..\common\g2d.c" />
+    <ClCompile Include="..\..\..\common\getopt.c" />
+    <ClCompile Include="..\..\..\common\homography.c" />
+    <ClCompile Include="..\..\..\common\image_u8.c" />
+    <ClCompile Include="..\..\..\common\image_u8x3.c" />
+    <ClCompile Include="..\..\..\common\image_u8x4.c" />
+    <ClCompile Include="..\..\..\common\matd.c" />
+    <ClCompile Include="..\..\..\common\pam.c" />
+    <ClCompile Include="..\..\..\common\pjpeg-idct.c" />
+    <ClCompile Include="..\..\..\common\pjpeg.c" />
+    <ClCompile Include="..\..\..\common\pnm.c" />
+    <ClCompile Include="..\..\..\common\string_util.c" />
+    <ClCompile Include="..\..\..\common\svd22.c" />
+    <ClCompile Include="..\..\..\common\time_util.c" />
+    <ClCompile Include="..\..\..\common\unionfind.c" />
+    <ClCompile Include="..\..\..\common\workerpool.c" />
+    <ClCompile Include="..\..\..\common\zarray.c" />
+    <ClCompile Include="..\..\..\common\zhash.c" />
+    <ClCompile Include="..\..\..\common\zmaxheap.c" />
     <ClCompile Include="..\..\..\example\apriltag_demo.c" />
+    <ClCompile Include="..\..\..\tag16h5.c" />
+    <ClCompile Include="..\..\..\tag25h9.c" />
+    <ClCompile Include="..\..\..\tag36h11.c" />
+    <ClCompile Include="..\..\..\tagCircle21h7.c" />
+    <ClCompile Include="..\..\..\tagCircle49h12.c" />
+    <ClCompile Include="..\..\..\tagCustom48h12.c" />
+    <ClCompile Include="..\..\..\tagStandard41h12.c" />
+    <ClCompile Include="..\..\..\tagStandard52h13.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\apriltag.h" />
+    <ClInclude Include="..\..\..\apriltag_math.h" />
+    <ClInclude Include="..\..\..\apriltag_pose.h" />
+    <ClInclude Include="..\..\..\common\doubles.h" />
+    <ClInclude Include="..\..\..\common\doubles_floats_impl.h" />
+    <ClInclude Include="..\..\..\common\floats.h" />
+    <ClInclude Include="..\..\..\common\g2d.h" />
+    <ClInclude Include="..\..\..\common\getopt.h" />
+    <ClInclude Include="..\..\..\common\homography.h" />
+    <ClInclude Include="..\..\..\common\image_types.h" />
+    <ClInclude Include="..\..\..\common\image_u8.h" />
+    <ClInclude Include="..\..\..\common\image_u8x3.h" />
+    <ClInclude Include="..\..\..\common\image_u8x4.h" />
+    <ClInclude Include="..\..\..\common\matd.h" />
+    <ClInclude Include="..\..\..\common\math_util.h" />
+    <ClInclude Include="..\..\..\common\pam.h" />
+    <ClInclude Include="..\..\..\common\pjpeg.h" />
+    <ClInclude Include="..\..\..\common\pnm.h" />
+    <ClInclude Include="..\..\..\common\postscript_utils.h" />
+    <ClInclude Include="..\..\..\common\string_util.h" />
+    <ClInclude Include="..\..\..\common\svd22.h" />
+    <ClInclude Include="..\..\..\common\timeprofile.h" />
+    <ClInclude Include="..\..\..\common\time_util.h" />
+    <ClInclude Include="..\..\..\common\unionfind.h" />
+    <ClInclude Include="..\..\..\common\workerpool.h" />
+    <ClInclude Include="..\..\..\common\zarray.h" />
+    <ClInclude Include="..\..\..\common\zhash.h" />
+    <ClInclude Include="..\..\..\common\zmaxheap.h" />
+    <ClInclude Include="..\..\..\tag16h5.h" />
+    <ClInclude Include="..\..\..\tag25h9.h" />
+    <ClInclude Include="..\..\..\tag36h11.h" />
+    <ClInclude Include="..\..\..\tagCircle21h7.h" />
+    <ClInclude Include="..\..\..\tagCircle49h12.h" />
+    <ClInclude Include="..\..\..\tagCustom48h12.h" />
+    <ClInclude Include="..\..\..\tagStandard41h12.h" />
+    <ClInclude Include="..\..\..\tagStandard52h13.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\apriltag_detect.docstring" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\pthreads.redist.2.9.1.4\build\native\pthreads.redist.targets" Condition="Exists('..\packages\pthreads.redist.2.9.1.4\build\native\pthreads.redist.targets')" />
+    <Import Project="..\packages\pthreads.2.9.1.4\build\native\pthreads.targets" Condition="Exists('..\packages\pthreads.2.9.1.4\build\native\pthreads.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\pthreads.redist.2.9.1.4\build\native\pthreads.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\pthreads.redist.2.9.1.4\build\native\pthreads.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\pthreads.2.9.1.4\build\native\pthreads.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\pthreads.2.9.1.4\build\native\pthreads.targets'))" />
+  </Target>
 </Project>
