@@ -46,10 +46,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>../../../;..\packages\pthreads.2.9.1.4\build\native\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\packages\pthreads.2.9.1.4\build\native\lib\v110\x64\Debug\static\cdecl;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>../../../;..\packages\pthreads.2.9.1.4\build\native\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\packages\pthreads.2.9.1.4\build\native\lib\v110\x64\Release\static\cdecl;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -60,12 +64,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <DisableLanguageExtensions>true</DisableLanguageExtensions>
-      <CompileAs>CompileAsC</CompileAs>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <AdditionalOptions>-D_CRT_SECURE_NO_WARNINGS -D_CRT_NONSTDC_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libpthread-static.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -79,20 +84,20 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <DisableLanguageExtensions>true</DisableLanguageExtensions>
-      <CompileAs>CompileAsC</CompileAs>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <AdditionalOptions>-D_CRT_SECURE_NO_WARNINGS -D_CRT_NONSTDC_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libpthread-static.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\apriltag.c" />
     <ClCompile Include="..\..\..\apriltag_pose.c" />
-    <ClCompile Include="..\..\..\apriltag_pywrap.c" />
     <ClCompile Include="..\..\..\apriltag_quad_thresh.c" />
     <ClCompile Include="..\..\..\common\g2d.c" />
     <ClCompile Include="..\..\..\common\getopt.c" />

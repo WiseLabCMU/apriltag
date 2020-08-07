@@ -26,6 +26,8 @@ either expressed or implied, of the Regents of The University of Michigan.
 */
 
 #define __USE_GNU
+#define HAVE_STRUCT_TIMESPEC
+#define PTW32_STATIC_LIB
 #include <pthread.h>
 #include <sched.h>
 #include <assert.h>

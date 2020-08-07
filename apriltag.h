@@ -38,6 +38,8 @@ extern "C" {
 #include "common/zarray.h"
 #include "common/workerpool.h"
 #include "common/timeprofile.h"
+#define HAVE_STRUCT_TIMESPEC
+#define PTW32_STATIC_LIB
 #include <pthread.h>
 
 #define APRILTAG_TASKS_PER_THREAD_TARGET 10

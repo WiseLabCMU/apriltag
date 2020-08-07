@@ -87,9 +87,6 @@
     <ClCompile Include="..\..\..\apriltag_pose.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\apriltag_pywrap.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\apriltag_quad_thresh.c">
       <Filter>Source Files</Filter>
     </ClCompile>
