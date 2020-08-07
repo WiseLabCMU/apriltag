@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="apriltag.cpp">
+    <ClCompile Include="..\..\..\example\apriltag_demo.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
