@@ -367,3 +367,14 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/VS/apriltag/apriltag/debug_clusters.pnm
+/VS/apriltag/apriltag/debug_lines.ps
+/VS/apriltag/apriltag/debug_output.pnm
+/VS/apriltag/apriltag/debug_output.ps
+/VS/apriltag/apriltag/debug_preprocess.pnm
+/VS/apriltag/apriltag/debug_quads.ps
+/VS/apriltag/apriltag/debug_quads_fixed.pnm
+/VS/apriltag/apriltag/debug_quads_raw.pnm
+/VS/apriltag/apriltag/debug_samples.pnm
+/VS/apriltag/apriltag/debug_segmentation.pnm
+/VS/apriltag/apriltag/debug_threshold.pnm
