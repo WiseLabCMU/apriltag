@@ -206,6 +206,20 @@ int main(int argc, char *argv[])
                 continue;
             }
 
+            image_u8_t* im_fixed = image_u8_create(2560, 1440);
+            for (int y = 0; y < 1440; y++)
+            {
+                for (int x = 0; x < 2560; x++)
+                {
+                    if (x >= 320 && x < 2440)
+                        im_fixed->buf[y*im_fixed->stride + x] = im->buf[y*im->stride + x - 320];
+                    else
+                        im_fixed->buf[y*im_fixed->stride + x] = 0;
+                }
+            }
+
+            im = image_u8_decimate(im, 2.0f);
+
             zarray_t *detections = apriltag_detector_detect(td, im);
 
             for (int i = 0; i < zarray_size(detections); i++) {
