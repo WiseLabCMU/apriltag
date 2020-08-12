@@ -273,25 +273,25 @@ int main(int argc, char *argv[])
             //        det->p[i][1] = p[1];
             //    }
 
-            //    estimate_pose_for_tag_homography(&g_det_pose_info, &pose0);
-            //    estimate_tag_pose_orthogonal_iteration(&g_det_pose_info, &pose_err1, &pose1, &pose_err2, &pose2, 50);
-            //    printf("solution0:\n");
-            //    printf(fmt_det_point_pose, det->id, 0.150, det->p[0][0], det->p[0][1], det->p[1][0], det->p[1][1], det->p[2][0], det->p[2][1], det->p[3][0], det->p[3][1], det->c[0], det->c[1], matd_get(pose0.R, 0, 0), matd_get(pose0.R, 0, 1), matd_get(pose0.R, 0, 2), matd_get(pose0.R, 1, 0), matd_get(pose0.R, 1, 1), matd_get(pose0.R, 1, 2), matd_get(pose0.R, 2, 0), matd_get(pose0.R, 2, 1), matd_get(pose0.R, 2, 2), matd_get(pose0.t, 0, 0), matd_get(pose0.t, 1, 0), matd_get(pose0.t, 2, 0), pose_err0);
-            //    printf("solution1:\n");
-            //    printf(fmt_det_point_pose, det->id, 0.150, det->p[0][0], det->p[0][1], det->p[1][0], det->p[1][1], det->p[2][0], det->p[2][1], det->p[3][0], det->p[3][1], det->c[0], det->c[1], matd_get(pose1.R, 0, 0), matd_get(pose1.R, 0, 1), matd_get(pose1.R, 0, 2), matd_get(pose1.R, 1, 0), matd_get(pose1.R, 1, 1), matd_get(pose1.R, 1, 2), matd_get(pose1.R, 2, 0), matd_get(pose1.R, 2, 1), matd_get(pose1.R, 2, 2), matd_get(pose1.t, 0, 0), matd_get(pose1.t, 1, 0), matd_get(pose1.t, 2, 0), pose_err1);
-            //    if (pose2.R)
-            //    {
-            //        printf("solution2:\n");
-            //        printf(fmt_det_point_pose, det->id, 0.150, det->p[0][0], det->p[0][1], det->p[1][0], det->p[1][1], det->p[2][0], det->p[2][1], det->p[3][0], det->p[3][1], det->c[0], det->c[1], matd_get(pose2.R, 0, 0), matd_get(pose2.R, 0, 1), matd_get(pose2.R, 0, 2), matd_get(pose2.R, 1, 0), matd_get(pose2.R, 1, 1), matd_get(pose2.R, 1, 2), matd_get(pose2.R, 2, 0), matd_get(pose2.R, 2, 1), matd_get(pose2.R, 2, 2), matd_get(pose2.t, 0, 0), matd_get(pose2.t, 1, 0), matd_get(pose2.t, 2, 0), pose_err2);
-            //        matd_destroy(pose2.R);
-            //        matd_destroy(pose2.t);
-            //    }
-            //    matd_destroy(pose1.R);
-            //    matd_destroy(pose1.t);
+                estimate_pose_for_tag_homography(&g_det_pose_info, &pose0);
+                estimate_tag_pose_orthogonal_iteration(&g_det_pose_info, &pose_err1, &pose1, &pose_err2, &pose2, 50);
+                printf("solution0:\n");
+                printf(fmt_det_point_pose, det->id, 0.150, det->p[0][0], det->p[0][1], det->p[1][0], det->p[1][1], det->p[2][0], det->p[2][1], det->p[3][0], det->p[3][1], det->c[0], det->c[1], matd_get(pose0.R, 0, 0), matd_get(pose0.R, 0, 1), matd_get(pose0.R, 0, 2), matd_get(pose0.R, 1, 0), matd_get(pose0.R, 1, 1), matd_get(pose0.R, 1, 2), matd_get(pose0.R, 2, 0), matd_get(pose0.R, 2, 1), matd_get(pose0.R, 2, 2), matd_get(pose0.t, 0, 0), matd_get(pose0.t, 1, 0), matd_get(pose0.t, 2, 0), pose_err0);
+                printf("solution1:\n");
+                printf(fmt_det_point_pose, det->id, 0.150, det->p[0][0], det->p[0][1], det->p[1][0], det->p[1][1], det->p[2][0], det->p[2][1], det->p[3][0], det->p[3][1], det->c[0], det->c[1], matd_get(pose1.R, 0, 0), matd_get(pose1.R, 0, 1), matd_get(pose1.R, 0, 2), matd_get(pose1.R, 1, 0), matd_get(pose1.R, 1, 1), matd_get(pose1.R, 1, 2), matd_get(pose1.R, 2, 0), matd_get(pose1.R, 2, 1), matd_get(pose1.R, 2, 2), matd_get(pose1.t, 0, 0), matd_get(pose1.t, 1, 0), matd_get(pose1.t, 2, 0), pose_err1);
+                if (pose2.R)
+                {
+                    printf("solution2:\n");
+                    printf(fmt_det_point_pose, det->id, 0.150, det->p[0][0], det->p[0][1], det->p[1][0], det->p[1][1], det->p[2][0], det->p[2][1], det->p[3][0], det->p[3][1], det->c[0], det->c[1], matd_get(pose2.R, 0, 0), matd_get(pose2.R, 0, 1), matd_get(pose2.R, 0, 2), matd_get(pose2.R, 1, 0), matd_get(pose2.R, 1, 1), matd_get(pose2.R, 1, 2), matd_get(pose2.R, 2, 0), matd_get(pose2.R, 2, 1), matd_get(pose2.R, 2, 2), matd_get(pose2.t, 0, 0), matd_get(pose2.t, 1, 0), matd_get(pose2.t, 2, 0), pose_err2);
+                    matd_destroy(pose2.R);
+                    matd_destroy(pose2.t);
+                }
+                matd_destroy(pose1.R);
+                matd_destroy(pose1.t);
 
-            //    hamm_hist[det->hamming]++;
-            //    total_hamm_hist[det->hamming]++;
-            //}
+                hamm_hist[det->hamming]++;
+                total_hamm_hist[det->hamming]++;
+            }
 
             apriltag_detections_destroy(detections);
 
